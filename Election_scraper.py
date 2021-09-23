@@ -31,6 +31,9 @@ def validate_name(name: str) -> None:
 
 
 def get_data(scraped_url: str) -> list:
+    '''
+    Returns data in a list organised in dict for each municipality
+    '''
      
     result = []
     tables = soup_from_url(scraped_url).find_all('table')
@@ -40,7 +43,9 @@ def get_data(scraped_url: str) -> list:
             row_tds = tr.find_all('td')
             row_hrefs = tr.find_all(href = True)
             if row_hrefs:                
-                result.append({**basic_data(row_tds) , **detail_data(row_hrefs[0]['href'])})
+                result.append({
+                    **basic_data(row_tds) , **detail_data(row_hrefs[0]['href'])
+                    })
     return result
 
 
@@ -82,13 +87,12 @@ def detail_data(href: str) -> dict:
     detail['voter_turnout'] = all_tds[5].getText()
     detail['valid_votes'] = all_tds[7].getText().replace('\xa0','')
 
-
     # Get number of votes for each party:
     i = 0
     while all_tds[10+i].getText() != '-': 
-        detail[all_tds[10+i].getText()] = all_tds[11+i].getText().replace('\xa0','')
+        detail[all_tds[10+i].getText()] = all_tds[11+i].getText().replace(
+            '\xa0','')
         i+=5
-
     return detail
 
 
