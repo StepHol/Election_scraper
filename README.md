@@ -22,7 +22,7 @@ district_file = 'results_prostejov.csv'
 --- Output ---
 
 Script saves the results in the csv file in your current directory.
-CSV file can be imported to your spreadsheet editor.
+The file can be imported to your spreadsheet editor.
 
 Here is an example of the output (top 4 rows):
 
