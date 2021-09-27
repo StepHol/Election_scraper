@@ -32,9 +32,8 @@ def validate_name(name: str) -> None:
 
 def get_data(scraped_url: str) -> list:
     '''
-    Returns data in a list organised in dict for each municipality
+    Returns data in list organised in dict for each municipality.
     '''
-     
     result = []
     tables = soup_from_url(scraped_url).find_all('table')
     for table in tables:
