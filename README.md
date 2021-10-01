@@ -7,7 +7,9 @@ for one chosen district. It is using Beautiful Soup 4. Data are saved into CSV f
 
 Before running the script please install appropriate versions of libraries 
 which are listed in 'requirements.txt' file.
-Use 'pip install' command to instal a library.
+
+$ pip3 --version                        # check pip manager version
+$ pip3 install -r requirements.txt      # install libraries in requirements.txt
 
 --- Usage ---
 
@@ -16,8 +18,8 @@ To the 'dictrict_file' write the name of the file where you want to store scrape
 
 For example:
 
-district_url = 'https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103'
-district_file = 'results_prostejov.csv'
+$ python election_scraper.py 'https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103' results_prostejov.csv
+
 
 --- Output ---
 
