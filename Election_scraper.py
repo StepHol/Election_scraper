@@ -4,8 +4,12 @@ import csv
 import traceback
 import sys
 
-district_url = sys.argv[1]
-district_file = sys.argv[2]
+try:
+    district_url = sys.argv[1]
+    district_file = sys.argv[2]
+except:
+    print('Two arguments required: URL and output file name.')
+    exit()
 
 
 def main(url: str, file_name: str) -> None:
