@@ -93,6 +93,7 @@ def voters_info(tables) -> dict:
     detail['valid_votes'] = row_tds[7].getText().replace('\xa0','')
     return detail
 
+
 def votes_for_party(tables) -> dict:
     votes = {}
     for table in tables[1:]:
