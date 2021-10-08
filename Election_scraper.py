@@ -1,8 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
-import traceback
 import sys
+
 
 try:
     district_url = sys.argv[1]
@@ -30,7 +30,11 @@ def validate_url(text: str) -> None:
     if 'https://volby.cz/pls/ps2017nss/' not in text:
         print('URL is not valid.')
         exit()
+    elif 'https://volby.cz/pls/ps2017nss/ps32?' not in text:
+        print('Argument 1 has to be URL with municipalities.')
+        exit()
     elif '.csv' in district_url:
+        print('First argument should be URL')
         exit()
 
 
@@ -41,8 +45,14 @@ def validate_name(name: str) -> None:
 
 
 def tables_from_url(url):
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.ConnectionError:
+        print('Connection failed.')
+        exit()
+    else:
+        soup = BeautifulSoup(response.text, 'html.parser') 
     return soup.find_all('table')
 
 
@@ -111,10 +121,12 @@ def write_to_csv(data: list, file_name: str) -> str:
         csv_file = open(file_name, mode = 'w', encoding = 'utf-8', newline='')
         columns = data[0].keys()
 
-    except FileExistsError:
-        return traceback.format_exc()
     except IndexError:
-        return traceback.format_exc()
+        print('Oops, something went wrong. Check your input URL.')
+        exit()
+    except AttributeError:
+        print('Oops, something went wrong. Check your input URL.')
+        exit()
     else:
         entry = csv.DictWriter(csv_file, fieldnames = columns)
         entry.writeheader()
